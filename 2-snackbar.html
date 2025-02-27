@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Форма збереження</title>
+  <script type="module" crossorigin src="/goit-advancedjs-hw-02/2-snackbar.js"></script>
+  <link rel="modulepreload" crossorigin href="/goit-advancedjs-hw-02/assets/styles-B6lTGcYS.js">
+  <link rel="modulepreload" crossorigin href="/goit-advancedjs-hw-02/assets/vendor-BbbuE1sJ.js">
+  <link rel="stylesheet" crossorigin href="/goit-advancedjs-hw-02/assets/styles-FnVUkXeE.css">
+  <link rel="stylesheet" crossorigin href="/goit-advancedjs-hw-02/assets/vendor-CZjNVMTf.css">
+</head>
+<body>
+
+<form class="form">
+  <label>
+    Delay (ms)
+    <input name="delay" required type="number" />
+  </label>
+
+  <fieldset>
+    <legend>State</legend>
+    <label>
+      <input name="state" required type="radio" value="fulfilled" />
+      Fulfilled
+    </label>
+    <label>
+      <input name="state" required type="radio" value="rejected" />
+      Rejected
+    </label>
+  </fieldset>
+
+  <button type="submit">Create notification</button>
+</form>
+
+
+</body>
+</html>
