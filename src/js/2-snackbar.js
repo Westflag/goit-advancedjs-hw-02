@@ -12,23 +12,25 @@ document.querySelector('.form').addEventListener('submit', function(event) {
   new Promise((resolve, reject) => {
     setTimeout(() => {
       if (state === 'fulfilled') {
-        resolve(`✅ Fulfilled after ${delay}ms`);
+        resolve(delay);
       } else {
-        reject(`❌ Rejected after ${delay}ms`);
+        reject(delay);
       }
     }, delay);
   })
-    .then((message) => {
+    .then((delay) => {
+        const message = `✅ Fulfilled after ${delay}ms`;
         console.log(message);
         iziToast.show({
           message: message,
         });
       },
     )
-    .catch((error) => {
-      console.error(error);
+    .catch((delay) => {
+      const message = `❌ Rejected after ${delay}ms`;
+      console.error(message);
       iziToast.error({
-        message: error,
+        message: message,
       });
     });
 });

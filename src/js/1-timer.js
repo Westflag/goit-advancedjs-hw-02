@@ -8,20 +8,6 @@ import iziToast from 'izitoast';
 // Додатковий імпорт стилів
 import 'izitoast/dist/css/iziToast.min.css';
 
-const input = document.getElementById('datetime-picker');
-
-const options = {
-  enableTime: true,
-  time_24hr: true,
-  defaultDate: new Date(),
-  minuteIncrement: 1,
-  onClose(selectedDates) {
-    console.log(selectedDates[0]);
-  },
-};
-
-flatpickr(input, options);
-
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('datetime-picker');
   const startButton = document.querySelector('[data-start]');
@@ -30,19 +16,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const minutesElement = document.querySelector('[data-minutes]');
   const secondsElement = document.querySelector('[data-seconds]');
 
+
+  const options = {
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: new Date(),
+    minuteIncrement: 1,
+    onClose(selectedDates) {
+      console.log(selectedDates[0]);
+      const selectedDate = selectedDates[0];
+      const currentDate = new Date();
+
+      if (isNaN(selectedDate.getTime()) || selectedDate <= currentDate) {
+        startButton.disabled = true;
+        iziToast.error({
+          message: 'Please choose a date in the future',
+        });
+      } else {
+        console.log('Enable button');
+        startButton.disabled = false;
+      }
+
+    },
+  };
+
+  flatpickr(input, options);
+
   let countdownInterval;
 
   startButton.addEventListener('click', () => {
     const selectedDate = new Date(input.value);
-    const currentDate = new Date();
 
-    if (isNaN(selectedDate.getTime()) || selectedDate <= currentDate) {
-      iziToast.error({
-        message: 'Please choose a date in the future',
-      });
-      return;
-    }
-
+    startButton.disabled = true;
+    input.disabled = true;
     if (countdownInterval) clearInterval(countdownInterval);
 
     countdownInterval = setInterval(() => {
@@ -50,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const timeDiff = selectedDate - now;
 
       if (timeDiff <= 0) {
+        input.disabled = false;
         clearInterval(countdownInterval);
         daysElement.textContent = '00';
         hoursElement.textContent = '00';
@@ -70,6 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
       secondsElement.textContent = String(diff.seconds).padStart(2, '0');
     }, 1000);
   });
+
+  startButton.disabled = true;
 });
 
 
