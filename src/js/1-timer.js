@@ -8,6 +8,8 @@ import iziToast from 'izitoast';
 // Додатковий імпорт стилів
 import 'izitoast/dist/css/iziToast.min.css';
 
+let selectedDateTime;
+
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('datetime-picker');
   const startButton = document.querySelector('[data-start]');
@@ -27,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const selectedDate = selectedDates[0];
       const currentDate = new Date();
 
+      selectedDateTime = selectedDate;
+
       if (isNaN(selectedDate.getTime()) || selectedDate <= currentDate) {
         startButton.disabled = true;
         iziToast.error({
@@ -45,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let countdownInterval;
 
   startButton.addEventListener('click', () => {
-    const selectedDate = new Date(input.value);
+    const selectedDate = selectedDateTime;
 
     startButton.disabled = true;
     input.disabled = true;
